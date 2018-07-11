@@ -52,6 +52,6 @@
     * 홈브루 brew install python3
     * 맥포츠 port install python3
     * debian이나 ubuntu
-    * sudo apt-get install python3 idle3
+        * sudo apt-get install python3 idle3
 
 
