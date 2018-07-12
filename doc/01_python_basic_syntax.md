@@ -558,8 +558,91 @@ docs.python.org/3/library/string.html#formatspec
     if not num % 2:
         evens.append(num)
 
-    # 
+    # equals
     evens = [even for even in [1,2,3,4,5,6,7,8,] if even % 2 == 0]
+    ```
+
+    ```python
+    result = []
+
+    for i in range(10):
+        result.append(i)
+
+    print(result)
+
+    result = [i for i in range(10)]
+    print(result)
+
+    result = [i for i in range(10) if i % 2 == 0]
+    print(result)
+
+    # result
+    [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    [0, 2, 4, 6, 8]
+    ```
+    ```python
+    word_1 = "Hello"
+    word_2 = "World"
+    result = [i+j for i in word_1 for j in word_2]
+
+    print(result)
+    # result
+    ['HW', 'Ho', 'Hr', 'Hl', 'Hd', 'eW', 'eo', 'er', 'el', 'ed', 'lW', 'lo', 'lr', 'll', 'ld', 'lW', 'lo', 'lr', 'll', 'ld', 'oW', 'oo', 'or', 'ol', 'od']
+    ```
+
+    ```python
+    case_1 = ["A", "B", "C"]
+    case_2 = ["D", "E", "A"]
+
+    result = [i+j for i in case_1 for j in case_2]
+    print(result)
+
+    # if 문 추가
+    result = [i+j for i in case_1 for j in case_2 if not(i==j)]
+    result.sort()
+
+    print(result)
+    
+    # result
+    ['AD', 'AE', 'AA', 'BD', 'BE', 'BA', 'CD', 'CE', 'CA']
+    ['AD', 'AE', 'BA', 'BD', 'BE', 'CA', 'CD', 'CE']
+    ```
+    ```python
+    words = 'The quick brown fox jumps over the lazy dog'.split()
+    print(words)
+
+    stuff = [[w.upper(), w.lower(), len(w)] for w in words]
+
+    for i in stuff:
+        print(i)
+
+    ['The', 'quick', 'brown', 'fox', 'jumps', 'over', 'the', 'lazy', 'dog']
+    ['THE', 'the', 3]
+    ['QUICK', 'quick', 5]
+    ['BROWN', 'brown', 5]
+    ['FOX', 'fox', 3]
+    ['JUMPS', 'jumps', 5]
+    ['OVER', 'over', 4]
+    ['THE', 'the', 3]
+    ['LAZY', 'lazy', 4]
+    ['DOG', 'dog', 3]
+    ```
+    
+    ```python
+    # one dimensional vs two dimesional
+    case_1 = ["A", "B", "C"]
+    case_2 = ["D", "E", "A"]
+    # ['AD', 'AE', 'AA', 'BD', 'BE', 'BA', 'CD', 'CE', 'CA']
+
+    result = [i+j for i in case_1 for j in case_2]
+    print(result)
+    result = [[i+j for i in case_1] for j in case_2]
+    print(result)
+
+    # result
+    ['AD', 'AE', 'AA', 'BD', 'BE', 'BA', 'CD', 'CE', 'CA']
+    [['AD', 'BD', 'CD'], ['AE', 'BE', 'CE'], ['AA', 'BA', 'CA']]
     ```
 
     ```python
@@ -731,3 +814,136 @@ docs.python.org/3/library/string.html#formatspec
 
     * pdb 운영체제의 터미널창으로 디버깅하는 방법
         * docs.python.org/3/library/pdb.html
+
+
+* split
+    ```python
+    example = 'www.naver.com'
+    subdomain, domain, tld = example.split(".")
+
+    print(subdomain, domain, tld)
+
+    items = 'zero one two three'.split()
+    print(items)
+
+    example = 'python,jquery,javascript'
+    print(example.split(","))
+
+    example = 'python,jquery,javascript'
+    a, b, c = example.split(",")
+    print(a, b, c)
+    
+    # result
+    www naver com
+    ['zero', 'one', 'two', 'three']
+    ['python', 'jquery', 'javascript']
+    python jquery javascript
+    ```
+
+* Enumerate
+    ```python
+    for i, v in enumerate(['tic', 'tac', 'toe']):
+        print(i, v)
+
+    mylist = ["a", "b", "c", "d"]
+
+    print(list(enumerate(mylist)))
+
+    print({i: j for i, j in enumerate('my University is an academic institute located in South Korea.'.split())})
+
+    # result
+    0 tic
+    1 tac
+    2 toe
+    [(0, 'a'), (1, 'b'), (2, 'c'), (3, 'd')]
+    {0: 'my', 1: 'University', 2: 'is', 3: 'an', 4: 'academic', 5: 'institute', 6: 'located', 7: 'in', 8: 'South', 9: 'Korea.'}
+    ```
+
+* zip
+    ```python
+    alist = ['a1', 'a2', 'a3']
+    blist = ['b1', 'b2', 'b3']
+
+    for a, b in zip(alist, blist):
+        print(a, b)
+    # result    
+    a1 b1
+    a2 b2
+    a3 b3
+    ```
+    ```python
+    a, b, c = zip((1, 2, 3), (10, 20, 30), (100, 200, 300))
+    print(a, b, c)
+    print([sum(x) for x in zip((1, 2, 3), (10, 20, 30), (100, 200, 300))])
+
+    (1, 10, 100) (2, 20, 200) (3, 30, 300)
+    [111, 222, 333]
+    ```
+
+    ```python
+    alist = ['a1', 'a2', 'a3']
+    blist = ['b1', 'b2', 'b3']
+
+    for i, (a, b) in enumerate(zip(alist, blist)):
+        print(i, a, b)
+    # result
+    0 a1 b1
+    1 a2 b2
+    2 a3 b3
+    ```
+* Lambda
+    ```python
+    print((lambda x: x+1)(5))
+    # result
+    6
+    ```
+    ```python
+    ex = [1, 2, 3, 4, 5]
+
+    print(list(map(lambda x: x**2, ex)))
+    print(list(map(lambda x, y: x+y, ex, ex)))
+
+    # result
+    [1, 4, 9, 16, 25]
+    [2, 4, 6, 8, 10]
+
+    ```
+* *args 
+    * 곱셉, 제곱, 가변인자, unpacking 용도로 asterisk를 사용함
+    ```python
+    def asterisk_test1(a, *args):
+        print(a, args)
+        print(type(args))
+
+    asterisk_test1(1, 2, 3, 4, 5, 6)
+
+    # result
+    1 (2, 3, 4, 5, 6)
+    <class 'tuple'>
+    ```
+* **kwargs
+    ```python
+    def asterisk_test2(a, **kargs):
+        print(a, kargs)
+        print(type(kargs))
+
+
+    asterisk_test2(1, b=2, c=3, d=4, e=5, f=6)
+    1 {'b': 2, 'c': 3, 'd': 4, 'e': 5, 'f': 6}
+    <class 'dict'>
+    ```
+* Asterisk - unpacking a container
+```python
+    def asterisk_test(a, *args):
+        print(a, args)
+        print(type(args))
+
+
+    asterisk_test(1, *(2, 3, 4, 5, 6))
+
+    asterisk_test(1, 2, 3, 4, 5, 6)
+
+    1 {'b': 2, 'c': 3, 'd': 4, 'e': 5, 'f': 6}
+    <class 'dict'>
+```
+
